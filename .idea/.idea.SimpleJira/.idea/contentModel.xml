@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Ivan\.Rider2017.2\system\resharper-host\local\Transient\ReSharperHost\v10\SolutionCaches\_SimpleJira.466499322.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Ivan\Documents\simple-jira" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="SimpleJira" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Impl" t="Include">
+          <e p="Mock" t="Include">
+            <e p="IJiraIssueMockStore.cs" t="Include" />
+            <e p="InMemory" t="Include">
+              <e p="InMemoryJiraIssueMockStore.cs" t="Include" />
+            </e>
+            <e p="Jql" t="Include">
+              <e p="Expressions" t="Include">
+                <e p="BinaryExpression.cs" t="Include" />
+                <e p="IdentifierExpression.cs" t="Include" />
+                <e p="IJqlClause.cs" t="Include" />
+                <e p="InExpression.cs" t="Include" />
+                <e p="IsEmptyExpression.cs" t="Include" />
+                <e p="JqlBinaryOperator.cs" t="Include" />
+                <e p="JqlVisitor.cs" t="Include" />
+                <e p="ListExpression.cs" t="Include" />
+                <e p="LiteralExpression.cs" t="Include" />
+                <e p="LiteralExpressionQuotingType.cs" t="Include" />
+                <e p="UnaryExpression.cs" t="Include" />
+                <e p="UnaryOperator.cs" t="Include" />
+              </e>
+              <e p="JqlFieldEqualityComparer.cs" t="Include" />
+              <e p="JqlFilterBuilder.cs" t="Include" />
+              <e p="OperatorPrecedenceAttribute.cs" t="Include" />
+              <e p="OperatorSynonymsAttribute.cs" t="Include" />
+              <e p="Parser" t="Include">
+                <e p="ElementsHolder.cs" t="Include" />
+                <e p="JqlGrammar.cs" t="Include" />
+                <e p="JqlParser.cs" t="Include" />
+                <e p="ParseHelpers.cs" t="Include" />
+              </e>
+            </e>
+            <e p="MockJiraHost.cs" t="Include" />
+          </e>
+          <e p="RestApi" t="Include">
+            <e p="RestApiJiraHost.cs" t="Include" />
+          </e>
+          <e p="Utilities" t="Include">
+            <e p="DictionaryHelpers.cs" t="Include" />
+            <e p="EnumAttributesCache.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Interface" t="Include">
+          <e p="Helpers" t="Include">
+            <e p="JiraIssueHelpers.cs" t="Include" />
+          </e>
+          <e p="IJiraHost.cs" t="Include" />
+          <e p="JiraHost.cs" t="Include" />
+          <e p="ObjectModel" t="Include">
+            <e p="JiraComment.cs" t="Include" />
+            <e p="JiraCommentAuthor.cs" t="Include" />
+            <e p="JiraIssue.cs" t="Include" />
+            <e p="JiraMetadata.cs" t="Include" />
+            <e p="JiraProject.cs" t="Include" />
+            <e p="JiraQuery.cs" t="Include" />
+            <e p="JiraQueryResponse.cs" t="Include" />
+          </e>
+          <e p="RestApi" t="Include">
+            <e p="JiraEndPoint.cs" t="Include" />
+            <e p="JiraHttpTransportException.cs" t="Include" />
+          </e>
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="SimpleJira.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="SimpleJira.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
