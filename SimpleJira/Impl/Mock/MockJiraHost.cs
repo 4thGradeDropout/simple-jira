@@ -60,20 +60,20 @@ namespace SimpleJira.Impl.Mock
             }
         }
 
-        public JiraComment[] GetComments(string key)
+        public JiraComment[] GetComments(string issueKey)
         {
             lock (lockObject)
             {
-                var issue = GetByKey(key); // Check issue existance
+                var issue = GetByKey(issueKey); // Check issue existance
                 return store.SelectComments(issue.Key).ToArray();
             }
         }
 
-        public void AddComment(string key, JiraComment comment)
+        public void AddComment(string issueKey, JiraComment comment)
         {
             lock (lockObject)
             {
-                var issue = GetByKey(key); // Check issue existance
+                var issue = GetByKey(issueKey); // Check issue existance
                 store.AddComment(issue.Key, comment);
             }
         }

@@ -7,7 +7,7 @@ namespace SimpleJira.Interface
         JiraQueryResponse Query(JiraQuery query);
         string CreateIssue(object fields);
         void UpdateIssue(string issueKey, object fields);
-        JiraComment[] GetComments(string key);
-        void AddComment(string key, JiraComment comment);
+        JiraComment[] GetComments(string issueKey);
+        void AddComment(string issueKey, JiraComment comment);
     }
 }
