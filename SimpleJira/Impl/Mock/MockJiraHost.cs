@@ -39,7 +39,7 @@ namespace SimpleJira.Impl.Mock
         {
             lock (lockObject)
             {
-                var cloned = ObjectToDictionary(fields).ToDictionary();
+                var cloned = ObjectToDictionary(fields);
                 var key = store.KeyPrefix + "-" + ++id;
                 store.Create(new JiraIssue
                 {

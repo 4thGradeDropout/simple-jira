@@ -32,12 +32,7 @@ namespace SimpleJira.Impl.Mock.InMemory
             for (var i = 0; i < issues.Count; ++i)
                 if (issues[i].Key == issue.Key)
                 {
-                    issues[i] = new JiraIssue
-                    {
-                        Key = issue.Key,
-                        Id = issue.Id,
-                        Fields = issue.Fields.ToDictionary()
-                    };
+                    issues[i] = CloneIssue(issue);
                     break;
                 }
         }
