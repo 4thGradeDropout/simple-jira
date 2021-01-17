@@ -9,7 +9,6 @@
         <Description>Provides the simple way to call JIRA Rest API using LINQ provider.</Description>
         <Copyright>Copyright ©2021 Ivan Medvedev</Copyright>
         <PackageProjectUrl>https://github.com/ivan816/simple-jira/</PackageProjectUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RepositoryUrl>https://github.com/ivan816/simple-jira/</RepositoryUrl>
         <PackageTags>jira linq</PackageTags>
