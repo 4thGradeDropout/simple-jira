@@ -1,110 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\ILRepack.2.0.16\build\ILRepack.props" Condition="Exists('..\packages\ILRepack.2.0.16\build\ILRepack.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F26226DC-E918-4B0D-9267-E77B309C7322}</ProjectGuid>
-    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimpleJira</RootNamespace>
-    <AssemblyName>SimpleJira</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47">
-      <HintPath>..\packages\Irony.1.0.0-beta1\lib\net45\Irony.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Impl\Mock\IJiraIssueMockStore.cs" />
-    <Compile Include="Impl\Mock\InMemory\InMemoryJiraIssueMockStore.cs" />
-    <Compile Include="Impl\Mock\Jql\JqlFieldEqualityComparer.cs" />
-    <Compile Include="Impl\Mock\Jql\JqlFilterBuilder.cs" />
-    <Compile Include="Impl\Mock\Jql\OperatorPrecedenceAttribute.cs" />
-    <Compile Include="Impl\Mock\Jql\OperatorSynonymsAttribute.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\BinaryExpression.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\IdentifierExpression.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\IJqlClause.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\InExpression.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\IsEmptyExpression.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\JqlBinaryOperator.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\JqlVisitor.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\ListExpression.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\LiteralExpression.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\LiteralExpressionQuotingType.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\UnaryExpression.cs" />
-    <Compile Include="Impl\Mock\Jql\Expressions\UnaryOperator.cs" />
-    <Compile Include="Impl\Mock\Jql\Parser\ElementsHolder.cs" />
-    <Compile Include="Impl\Mock\Jql\Parser\JqlGrammar.cs" />
-    <Compile Include="Impl\Mock\Jql\Parser\JqlParser.cs" />
-    <Compile Include="Impl\Mock\Jql\Parser\ParseHelpers.cs" />
-    <Compile Include="Impl\Mock\MockJiraHost.cs" />
-    <Compile Include="Impl\RestApi\RestApiJiraHost.cs" />
-    <Compile Include="Impl\Utilities\DictionaryHelpers.cs" />
-    <Compile Include="Impl\Utilities\EnumAttributesCache.cs" />
-    <Compile Include="Interface\Helpers\JiraIssueHelpers.cs" />
-    <Compile Include="Interface\IJiraHost.cs" />
-    <Compile Include="Interface\JiraHost.cs" />
-    <Compile Include="Interface\ObjectModel\JiraComment.cs" />
-    <Compile Include="Interface\ObjectModel\JiraCommentAuthor.cs" />
-    <Compile Include="Interface\ObjectModel\JiraMetadata.cs" />
-    <Compile Include="Interface\ObjectModel\JiraProject.cs" />
-    <Compile Include="Interface\ObjectModel\JiraIssue.cs" />
-    <Compile Include="Interface\ObjectModel\JiraQuery.cs" />
-    <Compile Include="Interface\ObjectModel\JiraQueryResponse.cs" />
-    <Compile Include="Interface\RestApi\JiraHttpTransportException.cs" />
-    <Compile Include="Interface\RestApi\JiraEndPoint.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  -->
-  <Target Name="AfterBuild">
-    <CreateItem Include="@(ReferencePath)" Condition="'%(CopyLocal)'=='true'">
-      <Output TaskParameter="Include" ItemName="IlmergeAssemblies" />
-    </CreateItem>
+<Project Sdk="Microsoft.NET.Sdk">
+
     <PropertyGroup>
-      <ILRepackCommand>"..\packages\ILRepack.2.0.16\tools\ILRepack.exe" /internalize /out:$(OutputPath)\$(AssemblyName).dll "@(IntermediateAssembly)" @(IlmergeAssemblies->'"%(FullPath)"', ' ')</ILRepackCommand>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     </PropertyGroup>
-    <Exec Condition="'$(OS)' == 'Unix'" Command="mono $(ILRepackCommand)" />
-    <Exec Condition="'$(OS)' != 'Unix'" Command="$(ILRepackCommand)" />
-    <Delete Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
-  </Target>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" PrivateAssets="All" />
+        <PackageReference Include="Remotion.Linq" Version="2.2.0" PrivateAssets="All" />
+        <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" PrivateAssets="All" />
+    </ItemGroup>
+
+    <Target Name="ILRepack" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+        <PropertyGroup>
+            <WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>
+        </PropertyGroup>
+        <ItemGroup>
+            <InputAssemblies Include="Newtonsoft.Json.dll" />
+            <InputAssemblies Include="Remotion.Linq.dll" />
+        </ItemGroup>
+        <ItemGroup>
+            <!-- Dot not internalize any types inside this assembly -->
+        </ItemGroup>
+        <Message Text="MERGING: @(InputAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
+        <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).dll" OutputAssembly="$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)" WorkingDirectory="$(WorkingDirectory)" />
+    </Target>
+
 </Project>

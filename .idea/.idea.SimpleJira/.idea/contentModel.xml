@@ -1,81 +1,329 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Ivan\.Rider2017.2\system\resharper-host\local\Transient\ReSharperHost\v10\SolutionCaches\_SimpleJira.466499322.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Ivan\Documents\simple-jira" t="IncludeFlat">
+    <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.8.0/build/netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.17.0/build/netcoreapp2.1/nunit.engine.api.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.17.0/build/netcoreapp2.1/nunit.engine.core.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.17.0/build/netcoreapp2.1/nunit.engine.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.17.0/build/netcoreapp2.1/NUnit3.TestAdapter.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.17.0/build/netcoreapp2.1/NUnit3.TestAdapter.pdb" t="Include" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_SimpleJira.986910710.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
       <e p="SimpleJira" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Impl" t="Include">
-          <e p="Mock" t="Include">
-            <e p="IJiraIssueMockStore.cs" t="Include" />
-            <e p="InMemory" t="Include">
-              <e p="InMemoryJiraIssueMockStore.cs" t="Include" />
-            </e>
-            <e p="Jql" t="Include">
-              <e p="Expressions" t="Include">
-                <e p="BinaryExpression.cs" t="Include" />
-                <e p="IdentifierExpression.cs" t="Include" />
-                <e p="IJqlClause.cs" t="Include" />
-                <e p="InExpression.cs" t="Include" />
-                <e p="IsEmptyExpression.cs" t="Include" />
-                <e p="JqlBinaryOperator.cs" t="Include" />
-                <e p="JqlVisitor.cs" t="Include" />
-                <e p="ListExpression.cs" t="Include" />
-                <e p="LiteralExpression.cs" t="Include" />
-                <e p="LiteralExpressionQuotingType.cs" t="Include" />
-                <e p="UnaryExpression.cs" t="Include" />
-                <e p="UnaryOperator.cs" t="Include" />
-              </e>
-              <e p="JqlFieldEqualityComparer.cs" t="Include" />
-              <e p="JqlFilterBuilder.cs" t="Include" />
-              <e p="OperatorPrecedenceAttribute.cs" t="Include" />
-              <e p="OperatorSynonymsAttribute.cs" t="Include" />
-              <e p="Parser" t="Include">
-                <e p="ElementsHolder.cs" t="Include" />
-                <e p="JqlGrammar.cs" t="Include" />
-                <e p="JqlParser.cs" t="Include" />
-                <e p="ParseHelpers.cs" t="Include" />
-              </e>
-            </e>
-            <e p="MockJiraHost.cs" t="Include" />
+          <e p="Ast" t="Include">
+            <e p="BinaryExpression.cs" t="Include" />
+            <e p="CascadeOptionExpression.cs" t="Include" />
+            <e p="CustomField.cs" t="Include" />
+            <e p="FieldMatchingExpression.cs" t="Include" />
+            <e p="FieldOrdering.cs" t="Include" />
+            <e p="FieldReferenceExpression.cs" t="Include" />
+            <e p="IJqlClause.cs" t="Include" />
+            <e p="InExpression.cs" t="Include" />
+            <e p="IsEmptyExpression.cs" t="Include" />
+            <e p="IssueFunctionExpression.cs" t="Include" />
+            <e p="JqlBinaryExpressionType.cs" t="Include" />
+            <e p="JqlExpression.cs" t="Include" />
+            <e p="JqlFieldMatchingType.cs" t="Include" />
+            <e p="JqlIssueFunction.cs" t="Include" />
+            <e p="JqlIssueFunctionHelpers.cs" t="Include" />
+            <e p="JqlLiteralQuotingType.cs" t="Include" />
+            <e p="JqlOrderType.cs" t="Include" />
+            <e p="JqlUnaryExpressionType.cs" t="Include" />
+            <e p="JqlVisitor.cs" t="Include" />
+            <e p="OrderByExpression.cs" t="Include" />
+            <e p="UnaryExpression.cs" t="Include" />
+            <e p="ValueExpression.cs" t="Include" />
+          </e>
+          <e p="Controllers" t="Include">
+            <e p="JiraIssueFieldsController.cs" t="Include" />
+          </e>
+          <e p="Dto" t="Include">
+            <e p="JiraAttachmentDto.cs" t="Include" />
+            <e p="JiraAvatarUrlsDto.cs" t="Include" />
+            <e p="JiraCommentDto.cs" t="Include" />
+            <e p="JiraCustomFieldOptionDto.cs" t="Include" />
+            <e p="JiraIssueCommentsDto.cs" t="Include" />
+            <e p="JiraIssueReferenceDto.cs" t="Include" />
+            <e p="JiraIssueTypeDto.cs" t="Include" />
+            <e p="JiraPriorityDto.cs" t="Include" />
+            <e p="JiraProjectDto.cs" t="Include" />
+            <e p="JiraStatusCategoryDto.cs" t="Include" />
+            <e p="JiraStatusDto.cs" t="Include" />
+            <e p="JiraTransitionDto.cs" t="Include" />
+            <e p="JiraUserDto.cs" t="Include" />
+          </e>
+          <e p="FilterFormatHelpers.cs" t="Include" />
+          <e p="Helpers" t="Include">
+            <e p="JiraIssueCaster.cs" t="Include" />
+            <e p="NullableExtensions.cs" t="Include" />
+            <e p="PropertyAccessor.cs" t="Include" />
+            <e p="ReflectionHelpers.cs" t="Include" />
+            <e p="Scope.cs" t="Include" />
+            <e p="ScopeBuilder.cs" t="Include" />
+            <e p="StringHelpers.cs" t="Include" />
+          </e>
+          <e p="JiraIssueInitializer.cs" t="Include" />
+          <e p="JiraMetadataProviderExtensions.cs" t="Include" />
+          <e p="Queryable" t="Include">
+            <e p="BuiltQuery.cs" t="Include" />
+            <e p="CustomFieldHelpers.cs" t="Include" />
+            <e p="FilterPredicateAnalyzer.cs" t="Include" />
+            <e p="MemberAccessBuilder.cs" t="Include" />
+            <e p="ParameterizingExpressionVisitor.cs" t="Include" />
+            <e p="Projection.cs" t="Include" />
+            <e p="ProjectionMapperFactory.cs" t="Include" />
+            <e p="PropertiesExtractingVisitor.cs" t="Include" />
+            <e p="QueryBuilder.cs" t="Include" />
+            <e p="QueryField.cs" t="Include" />
+            <e p="QueryModelVisitor.cs" t="Include" />
+            <e p="RelinqHelpers.cs" t="Include" />
+            <e p="RelinqQueryable.cs" t="Include" />
+            <e p="RelinqQueryExecutor.cs" t="Include" />
+            <e p="RelinqQueryProvider.cs" t="Include" />
+            <e p="SelectedProperty.cs" t="Include" />
+            <e p="SelectedPropertyItem.cs" t="Include" />
           </e>
           <e p="RestApi" t="Include">
-            <e p="RestApiJiraHost.cs" t="Include" />
+            <e p="BasicAuthenticationHeader.cs" t="Include" />
+            <e p="JiraApiIssueModel.cs" t="Include" />
+            <e p="RestApiJira.cs" t="Include" />
           </e>
-          <e p="Utilities" t="Include">
-            <e p="DictionaryHelpers.cs" t="Include" />
-            <e p="EnumAttributesCache.cs" t="Include" />
+          <e p="Serialization" t="Include">
+            <e p="AutoMapper.cs" t="Include" />
+            <e p="JiraJsonConverter.cs" t="Include" />
+            <e p="Json.cs" t="Include" />
           </e>
+          <e p="Workflow.cs" t="Include" />
+          <e p="WorkflowBuilder.cs" t="Include" />
+          <e p="WorkflowCache.cs" t="Include" />
         </e>
         <e p="Interface" t="Include">
-          <e p="Helpers" t="Include">
-            <e p="JiraIssueHelpers.cs" t="Include" />
-          </e>
-          <e p="IJiraHost.cs" t="Include" />
-          <e p="JiraHost.cs" t="Include" />
-          <e p="ObjectModel" t="Include">
-            <e p="JiraComment.cs" t="Include" />
-            <e p="JiraCommentAuthor.cs" t="Include" />
+          <e p="IJira.cs" t="Include" />
+          <e p="Issue" t="Include">
+            <e p="IConstraintFieldBuilder.cs" t="Include" />
+            <e p="IDefineScope.cs" t="Include" />
+            <e p="IDefineWorkflow.cs" t="Include" />
+            <e p="IJiraIssueFieldsController.cs" t="Include" />
+            <e p="IScopeBuilder.cs" t="Include" />
+            <e p="IWorkflowBuilder.cs" t="Include" />
+            <e p="JiraCustomFieldValue.cs" t="Include" />
             <e p="JiraIssue.cs" t="Include" />
-            <e p="JiraMetadata.cs" t="Include" />
-            <e p="JiraProject.cs" t="Include" />
-            <e p="JiraQuery.cs" t="Include" />
-            <e p="JiraQueryResponse.cs" t="Include" />
+            <e p="JiraIssueCustomFields.cs" t="Include" />
+            <e p="JiraIssueFields.cs" t="Include" />
+            <e p="JiraIssueFieldsControllerExtensions.cs" t="Include" />
           </e>
-          <e p="RestApi" t="Include">
-            <e p="JiraEndPoint.cs" t="Include" />
-            <e p="JiraHttpTransportException.cs" t="Include" />
+          <e p="Jira.cs" t="Include" />
+          <e p="JiraAuthorizationException.cs" t="Include" />
+          <e p="JiraCommentsRequest.cs" t="Include" />
+          <e p="JiraCommentsResponse.cs" t="Include" />
+          <e p="JiraException.cs" t="Include" />
+          <e p="JiraExtensions.cs" t="Include" />
+          <e p="JiraIssuesRequest.cs" t="Include" />
+          <e p="JiraIssuesResponse.cs" t="Include" />
+          <e p="JiraQueryProvider.cs" t="Include" />
+          <e p="JqlCompilationException.cs" t="Include" />
+          <e p="JqlFunctions.cs" t="Include" />
+          <e p="Logging" t="Include">
+            <e p="ConsoleLogger.cs" t="Include" />
+            <e p="ILogger.cs" t="Include" />
+            <e p="LoggingSettings.cs" t="Include" />
+            <e p="LoggingSettingsExtensions.cs" t="Include" />
+            <e p="LogLevel.cs" t="Include" />
+          </e>
+          <e p="Metadata" t="Include">
+            <e p="IJiraFieldMetadata.cs" t="Include" />
+            <e p="IJiraMetadataProvider.cs" t="Include" />
+            <e p="JiraIssuePropertyAttribute.cs" t="Include" />
+            <e p="JiraMetadataProvider.cs" t="Include" />
+            <e p="JiraMetadataProviderExtensions.cs" t="Include" />
+          </e>
+          <e p="Types" t="Include">
+            <e p="IJqlToken.cs" t="Include" />
+            <e p="JiraAttachment.cs" t="Include" />
+            <e p="JiraAvatarUrls.cs" t="Include" />
+            <e p="JiraComment.cs" t="Include" />
+            <e p="JiraCustomFieldOption.cs" t="Include" />
+            <e p="JiraIssueComments.cs" t="Include" />
+            <e p="JiraIssueReference.cs" t="Include" />
+            <e p="JiraIssueType.cs" t="Include" />
+            <e p="JiraPriority.cs" t="Include" />
+            <e p="JiraProject.cs" t="Include" />
+            <e p="JiraStatus.cs" t="Include" />
+            <e p="JiraStatusCategory.cs" t="Include" />
+            <e p="JiraTransition.cs" t="Include" />
+            <e p="JiraUser.cs" t="Include" />
           </e>
         </e>
-        <e p="obj" t="ExcludeRecursive" />
-        <e p="packages.config" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="SimpleJira.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />
         </e>
         <e p="SimpleJira.csproj" t="IncludeRecursive" />
       </e>
+      <e p="SimpleJira.Fakes" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Impl" t="Include">
+          <e p="BlobStorage.cs" t="Include" />
+          <e p="FileJiraIssueStore.cs" t="Include" />
+          <e p="Helpers" t="Include">
+            <e p="ActionDisposable.cs" t="Include" />
+            <e p="MutexLock.cs" t="Include" />
+            <e p="MutexLockingException.cs" t="Include" />
+          </e>
+          <e p="IJiraIssueStore.cs" t="Include" />
+          <e p="InMemoryJiraIssueStore.cs" t="Include" />
+          <e p="JiraIssueDto.cs" t="Include" />
+          <e p="JiraMetadataProviderExtenstions.cs" t="Include" />
+          <e p="Jql" t="Include">
+            <e p="Compiler" t="Include">
+              <e p="FilterFunctions.cs" t="Include" />
+              <e p="FilterParseHelpers.cs" t="Include" />
+              <e p="Filters.cs" t="Include" />
+              <e p="JqlCommand.cs" t="Include" />
+              <e p="JqlCompiler.cs" t="Include" />
+              <e p="JqlOrdering.cs" t="Include" />
+              <e p="JqlOrderingDirection.cs" t="Include" />
+            </e>
+            <e p="Parser" t="Include">
+              <e p="ElementsHolder.cs" t="Include" />
+              <e p="JqlGrammar.cs" t="Include" />
+              <e p="JqlParseError.cs" t="Include" />
+              <e p="JqlParser.cs" t="Include" />
+              <e p="OperatorPrecedenceAttribute.cs" t="Include" />
+              <e p="OperatorSynonymsAttribute.cs" t="Include" />
+              <e p="ParseHelpers.cs" t="Include" />
+            </e>
+          </e>
+          <e p="MockJira.cs" t="Include" />
+          <e p="SequenceGenerator.cs" t="Include" />
+        </e>
+        <e p="Interface" t="Include">
+          <e p="FakeJira.cs" t="Include" />
+          <e p="IMockJira.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="SimpleJira.Fakes.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="SimpleJira.Fakes.csproj" t="IncludeRecursive" />
+      </e>
       <e p="SimpleJira.sln" t="IncludeFlat" />
+      <e p="SimpleJira.Tests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Integration" t="Include">
+          <e p="ConcurrentMockJira.cs" t="Include" />
+          <e p="JiraType.cs" t="Include" />
+          <e p="Jql" t="Include">
+            <e p="Binary" t="Include">
+              <e p="And.cs" t="Include" />
+              <e p="Or.cs" t="Include" />
+            </e>
+            <e p="CascadeOption" t="Include">
+              <e p="CascadeOptionTest.cs" t="Include" />
+            </e>
+            <e p="FieldMatching" t="Include">
+              <e p="Contains.cs" t="Include" />
+              <e p="Equals.cs" t="Include" />
+              <e p="FieldMatchingTestBase.cs" t="Include" />
+              <e p="Greater.cs" t="Include" />
+              <e p="GreaterOrEquals.cs" t="Include" />
+              <e p="Less.cs" t="Include" />
+              <e p="LessOrEquals.cs" t="Include" />
+              <e p="NotContains.cs" t="Include" />
+              <e p="NotEquals.cs" t="Include" />
+            </e>
+            <e p="In" t="Include">
+              <e p="Negative.cs" t="Include" />
+              <e p="Positive.cs" t="Include" />
+            </e>
+            <e p="IsEmpty" t="Include">
+              <e p="Negative.cs" t="Include" />
+              <e p="Positive.cs" t="Include" />
+            </e>
+            <e p="IssueFunction" t="Include">
+              <e p="ParentsOf.cs" t="Include" />
+              <e p="SubtasksOf.cs" t="Include" />
+            </e>
+            <e p="OrderBy" t="Include">
+              <e p="OrderByTest.cs" t="Include" />
+            </e>
+            <e p="Unary" t="Include">
+              <e p="Not.cs" t="Include" />
+            </e>
+          </e>
+          <e p="MockJira.cs" t="Include" />
+          <e p="Queryable" t="Include">
+            <e p="AnyTest.cs" t="Include" />
+            <e p="ContainsTest.cs" t="Include" />
+            <e p="CountTest.cs" t="Include" />
+            <e p="EmptyFilterTest.cs" t="Include" />
+            <e p="EqualsTest.cs" t="Include" />
+            <e p="NotEqualsTest.cs" t="Include" />
+            <e p="OrderByTest.cs" t="Include" />
+            <e p="ProjectionTest.cs" t="Include" />
+            <e p="QueryableTestBase.cs" t="Include" />
+          </e>
+          <e p="Transitions" t="Include">
+            <e p="TransitionsTest.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Modules" t="Include">
+          <e p="FilterFunctionsTest.cs" t="Include" />
+          <e p="Queryable" t="Include">
+            <e p="ArrayContainsFilter.cs" t="Include" />
+            <e p="BinaryFilter.cs" t="Include" />
+            <e p="CompareFilter.cs" t="Include" />
+            <e p="DateTimeEqualityFilter.cs" t="Include" />
+            <e p="EqualityFilter.cs" t="Include" />
+            <e p="InFilter.cs" t="Include" />
+            <e p="IsEmptyFilter.cs" t="Include" />
+            <e p="IssueFunctionFilter.cs" t="Include" />
+            <e p="IssueTypeEqualityFilter.cs" t="Include" />
+            <e p="JiraCustomFieldOptionFilter.cs" t="Include" />
+            <e p="JiraIssueReferenceEqualityFilter.cs" t="Include" />
+            <e p="NotEqualsFilter.cs" t="Include" />
+            <e p="NotFilter.cs" t="Include" />
+            <e p="PriorityEqualityFilter.cs" t="Include" />
+            <e p="ProjectEqualityFilter.cs" t="Include" />
+            <e p="ProjectionTest.cs" t="Include" />
+            <e p="QueryBuilderTest.cs" t="Include" />
+            <e p="StatusEqualityFilter.cs" t="Include" />
+            <e p="UserEqualityFilter.cs" t="Include" />
+            <e p="WhereFilter.cs" t="Include" />
+          </e>
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="SimpleJira.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="SimpleJira.Tests.csproj" t="IncludeRecursive" />
+        <e p="TestBase.cs" t="Include" />
+        <e p="TestMetadata.cs" t="Include" />
+      </e>
     </e>
   </component>
 </project>
