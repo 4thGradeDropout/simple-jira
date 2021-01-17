@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-        <Title>SimpleJira</Title>
+        <Title>SimpleJira.Fakes</Title>
         <Authors>Ivan Medvedev, Pavel Strabykin</Authors>
         <Description>Provides InMemory and File implementations of SimpleJira.Interface.IJira.</Description>
         <Copyright>Copyright ©2021 Ivan Medvedev</Copyright>
