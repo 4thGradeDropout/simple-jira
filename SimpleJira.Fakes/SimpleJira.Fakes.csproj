@@ -4,16 +4,29 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <Title>SimpleJira</Title>
+        <Authors>Ivan Medvedev, Pavel Strabykin</Authors>
+        <Description>Provides InMemory and File implementations of SimpleJira.Interface.IJira.</Description>
+        <Copyright>Copyright ©2021 Ivan Medvedev</Copyright>
+        <PackageProjectUrl>https://github.com/ivan816/simple-jira/</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <RepositoryUrl>https://github.com/ivan816/simple-jira/</RepositoryUrl>
+        <PackageTags>jira linq inmemory mock</PackageTags>
     </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\SimpleJira\SimpleJira.csproj" />
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Irony" Version="1.1.0" PrivateAssets="All" />
         <PackageReference Include="StemmersNet.Standard" Version="1.1.1" PrivateAssets="All" />
         <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../LICENSE.txt" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SimpleJira\SimpleJira.csproj" />
     </ItemGroup>
 
     <Target Name="ILRepack" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
