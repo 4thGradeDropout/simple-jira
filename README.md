@@ -10,6 +10,28 @@
 - Файловая реализация прокси с поддержкой интерпретации JQL на объектах, хранящихся на диске локальной машины;
 - Linq Provider, работающий как с InMemory реализацией прокси так и с настоящей реалзицией прокси.
 
+### NuGet
+
+Для установки [SimpleJira пакета](https://www.nuget.org/packages/SimpleJira/), выполните следующую команду в [NuGet-консоли](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)
+
+    PM> Install-Package SimpleJira
+    
+или
+
+    dotnet add package SimpleJira
+
+для .NET CLI.
+
+Для установки [SimpleJira.Fakes пакета](https://www.nuget.org/packages/SimpleJira.Fakes/), выполните следующую команду в [NuGet-консоли](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)
+
+    PM> Install-Package SimpleJira.Fakes
+    
+или
+
+    dotnet add package SimpleJira.Fakes
+
+для .NET CLI.
+
 ## Прокси
 
 Взаимодействие с Jira происходит через интерфейс IJira. Для того чтобы инстанциировать его необходимо выполнить следущий код
