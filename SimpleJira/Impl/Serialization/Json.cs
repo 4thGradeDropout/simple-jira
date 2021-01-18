@@ -37,7 +37,8 @@ namespace SimpleJira.Impl.Serialization
                 return null;
             if (jObject is JToken jToken)
                 return jToken.ToObject(type, serializer);
-            return Convert.ChangeType(jObject, type);
+            type = Nullable.GetUnderlyingType(type) ?? type;
+            return jObject.GetType() == type ? jObject : Convert.ChangeType(jObject, type);
         }
 
         public static object ToToken(object obj)
