@@ -12,6 +12,7 @@
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RepositoryUrl>https://github.com/ivan816/simple-jira/</RepositoryUrl>
         <PackageTags>jira linq</PackageTags>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,7 +22,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <None Include="../LICENSE.txt" Pack="true" PackagePath=""/>
+        <None Include="../LICENSE.txt" Pack="true" PackagePath="" />
     </ItemGroup>
 
     <Target Name="ILRepack" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
