@@ -80,7 +80,7 @@ namespace SimpleJira.Impl.RestApi
             if (project == (JiraProject) null)
                 throw new JiraException("Field 'project' is required");
             var request = fields.Controller.GetFields();
-            var requestJson = request.ToJson();
+            var requestJson = $"{{\"fields\": {request.ToJson()}}}";
             cancellationToken.ThrowIfCancellationRequested();
             var responseMessage = await jira.PostAsync(hostUrl + "/rest/api/2/issue",
                 new StringContent(requestJson, Encoding.UTF8, "application/json"),
@@ -114,7 +114,7 @@ namespace SimpleJira.Impl.RestApi
             if (identifier == null)
                 throw new JiraException("issue's key and issue's id are null");
             var request = issue.Controller.GetChangedFields();
-            var requestJson = request.ToJson();
+            var requestJson = $"{{\"fields\": {request.ToJson()}}}";
             cancellationToken.ThrowIfCancellationRequested();
             var responseMessage = await jira.PutAsync(hostUrl + "/rest/api/2/issue/" + identifier,
                 new StringContent(requestJson, Encoding.UTF8, "application/json"),
