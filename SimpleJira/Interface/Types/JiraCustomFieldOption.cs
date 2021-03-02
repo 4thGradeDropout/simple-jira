@@ -125,8 +125,6 @@ namespace SimpleJira.Interface.Types
         {
             if (Child != (JiraCustomFieldOption) null)
                 return Child.ToJqlToken();
-            if (!string.IsNullOrEmpty(Id))
-                return Id;
             if (!string.IsNullOrEmpty(Value))
                 return Value;
             return null;

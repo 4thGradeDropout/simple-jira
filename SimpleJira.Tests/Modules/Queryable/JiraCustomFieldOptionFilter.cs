@@ -13,7 +13,7 @@ namespace SimpleJira.Tests.Modules.Queryable
         {
             AssertQuery(Source<JiraCustomIssue>()
                     .Where(x => x.HasDeadline == JiraCustomIssue.Metadata.HasDeadline.Yes),
-                "(CF[16563] = \"19313\")");
+                "(CF[16563] = \"Yes\")");
         }
 
         [Test]
