@@ -202,7 +202,19 @@ namespace SimpleJira.Fakes.Impl
                 throw new JiraException(
                     $"transition '{transitionId}' for issue '{issueReference.Key}', id: '{issueReference.Id}' is not found");
             if (fields != null)
-                throw new NotSupportedException();
+                foreach (var itemProp in fields.GetType().GetProperties())
+                {
+                    var itemObj = itemProp.GetValue(fields);
+                    var val = itemObj.GetType().GetProperty("value").GetValue(itemObj);
+                    switch (val)
+                    {
+                        case string str:
+                            issue.IssueFields.SetProperty(itemProp.Name, val.ToString());
+                            break;
+                        default:
+                            throw new ArgumentException($"not resolve of value [{val}]");
+                    }
+                }
 
             issue.IssueFields.SetProperty("status", currentTransition.To);
             await store.Update(issueReference.Key ?? issueReference.Id, issue.IssueFields);

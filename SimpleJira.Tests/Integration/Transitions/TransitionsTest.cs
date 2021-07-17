@@ -1,9 +1,13 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using SimpleJira.Fakes.Interface;
 using SimpleJira.Interface;
 using SimpleJira.Interface.Issue;
+using SimpleJira.Interface.Logging;
 using SimpleJira.Interface.Metadata;
 using SimpleJira.Interface.Types;
 
@@ -12,12 +16,55 @@ namespace SimpleJira.Tests.Integration.Transitions
     public class TransitionsTest : TestBase
     {
         private IJira jira;
+        protected JiraQueryProvider provider;
 
         protected override void SetUp()
         {
             base.SetUp();
-            jira = FakeJira.InMemory("http://fake.jira.int", User(),
-                new JiraMetadataProvider(new[] {typeof(JiraCustomIssue)}));
+            var metadataProvider = new JiraMetadataProvider(new[] {typeof(JiraCustomIssue)});
+            jira = FakeJira.InMemory("http://fake.jira.int", User(), metadataProvider);
+            provider = new JiraQueryProvider(jira, metadataProvider, new LoggingSettings
+            {
+                Level = LogLevel.None,
+                Logger = new ConsoleLogger()
+            });
+        }
+
+        [Test]
+        public async Task CheckHakOfOldField()
+        {
+            var reference = await jira.CreateIssueAsync(new JiraCustomIssue
+            {
+                Project = Project(),
+                IssueType = JiraCustomIssue.Metadata.IssueType,
+                Status = JiraCustomIssue.Metadata.Status.New
+            }, CancellationToken.None);
+            var fields = new
+            {
+                customfield_11700 = new
+                {
+                    value = "⭐⭐⭐Без ошибок"
+                }
+            };
+            jira.InvokeTransitionAsync(reference,
+                    "1",
+                    fields,
+                    CancellationToken.None)
+                .GetAwaiter()
+                .GetResult();
+            var issues = provider.GetIssues<JiraCustomIssue>()
+                .Select(x => new {customfield_11700 = x.CustomFields[11700].Get<string>()})
+                .ToArray();
+            
+            Assert.That(issues.Length, Is.EqualTo(1));
+            Assert.That(issues[0].customfield_11700, Is.Not.Null);
+            Assert.That(issues[0].customfield_11700, Is.EqualTo("⭐⭐⭐Без ошибок"));
+        }
+        
+        [Test]
+        public async Task ErrorResponseReturnCorrectText()
+        {
+            
         }
 
         [Test]
@@ -32,7 +79,7 @@ namespace SimpleJira.Tests.Integration.Transitions
             var response = await jira.SelectIssuesAsync<JiraCustomIssue>(new JiraIssuesRequest
             {
                 Jql = $"KEY = {reference.Key}",
-                Fields = new [] {"status"}
+                Fields = new[] {"status"}
             });
             Assert.That(response.Issues.Length, Is.EqualTo(1));
             Assert.That(response.Issues[0].Status, Is.Not.Null);
@@ -156,6 +203,17 @@ namespace SimpleJira.Tests.Integration.Transitions
                     SubTask = false
                 };
 
+                public static JiraIssueType ЗадачаAутсорс => new JiraIssueType
+                {
+                    Self = "https://task.knopka.com/rest/api/2/issuetype/10200",
+                    Id = "10200",
+                    Description = "",
+                    IconUrl =
+                        "https://task.knopka.com/secure/viewavatar?size=xsmall&avatarId=10306&avatarType=issuetype",
+                    Name = "Задача аутсорс",
+                    SubTask = true,
+                };
+
                 public static class Status
                 {
                     public static JiraStatus New => new JiraStatus
@@ -164,6 +222,14 @@ namespace SimpleJira.Tests.Integration.Transitions
                         Name = "New",
                         Description = "New",
                         Self = "http://fake.jira.int/rest/2/status/1",
+                    };
+
+                    public static JiraStatus Проверка => new JiraStatus
+                    {
+                        Id = "10203",
+                        Name = "Проверка",
+                        Description = "Проверка",
+                        Self = "http://fake.jira.int/rest/2/status/10203",
                     };
 
                     public static JiraStatus Done => new JiraStatus
