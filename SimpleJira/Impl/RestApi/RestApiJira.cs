@@ -96,7 +96,7 @@ namespace SimpleJira.Impl.RestApi
                         var errors = Json.Deserialize<JiraErrorMessages>(body);
                         var errorMessages = (errors?.ErrorMessages.ToList() ?? new List<string>());
                         errorMessages.Add(errors?.Errors?.Status);
-                        throw new JiraException(string.Join("\n", errorMessages));
+                        throw new JiraException(string.Join("\n", errorMessages)); //todo assert?
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     default:
@@ -132,7 +132,7 @@ namespace SimpleJira.Impl.RestApi
                         var errors = Json.Deserialize<JiraErrorMessages>(body);
                         var errorMessages = (errors?.ErrorMessages.ToList() ?? new List<string>());
                         errorMessages.Add(errors?.Errors?.Status);
-                        throw new JiraException(string.Join("\n", errorMessages));
+                        throw new JiraException(string.Join("\n", errorMessages));  //todo assert?
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     case HttpStatusCode.Forbidden:

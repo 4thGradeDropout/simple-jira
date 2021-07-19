@@ -43,7 +43,7 @@ namespace SimpleJira.Tests.Integration.Transitions
             {
                 customfield_11700 = new
                 {
-                    value = "⭐⭐⭐Без ошибок"
+                    value = "Значение поля"
                 }
             };
             jira.InvokeTransitionAsync(reference,
@@ -58,15 +58,9 @@ namespace SimpleJira.Tests.Integration.Transitions
             
             Assert.That(issues.Length, Is.EqualTo(1));
             Assert.That(issues[0].customfield_11700, Is.Not.Null);
-            Assert.That(issues[0].customfield_11700, Is.EqualTo("⭐⭐⭐Без ошибок"));
+            Assert.That(issues[0].customfield_11700, Is.EqualTo("Значение поля"));
         }
         
-        [Test]
-        public async Task ErrorResponseReturnCorrectText()
-        {
-            
-        }
-
         [Test]
         public async Task DefaultStatus()
         {
@@ -203,17 +197,6 @@ namespace SimpleJira.Tests.Integration.Transitions
                     SubTask = false
                 };
 
-                public static JiraIssueType ЗадачаAутсорс => new JiraIssueType
-                {
-                    Self = "https://task.knopka.com/rest/api/2/issuetype/10200",
-                    Id = "10200",
-                    Description = "",
-                    IconUrl =
-                        "https://task.knopka.com/secure/viewavatar?size=xsmall&avatarId=10306&avatarType=issuetype",
-                    Name = "Задача аутсорс",
-                    SubTask = true,
-                };
-
                 public static class Status
                 {
                     public static JiraStatus New => new JiraStatus
@@ -222,14 +205,6 @@ namespace SimpleJira.Tests.Integration.Transitions
                         Name = "New",
                         Description = "New",
                         Self = "http://fake.jira.int/rest/2/status/1",
-                    };
-
-                    public static JiraStatus Проверка => new JiraStatus
-                    {
-                        Id = "10203",
-                        Name = "Проверка",
-                        Description = "Проверка",
-                        Self = "http://fake.jira.int/rest/2/status/10203",
                     };
 
                     public static JiraStatus Done => new JiraStatus
