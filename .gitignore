@@ -5,6 +5,7 @@
 bin/
 obj/
 packages/
+/publish
 *.nupkg
 *.designer.cs
 *.Designer.cs
