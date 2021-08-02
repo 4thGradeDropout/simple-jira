@@ -121,7 +121,7 @@ namespace SimpleJira.Fakes.Impl
             CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(attachment.Content))
-                throw new JiraException("attachment's content is null or empty");
+                throw new JiraException("attachment's content is null or empty");//TODO Понять и исправить
             var attachmentId = long.Parse(attachment.Id);
             return await store.DownloadAttachment(attachmentId);
         }
