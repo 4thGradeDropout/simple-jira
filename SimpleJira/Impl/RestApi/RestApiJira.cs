@@ -41,9 +41,9 @@ namespace SimpleJira.Impl.RestApi
                 new StringContent(requestJson, Encoding.UTF8, "application/json"),
                 cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
-            if(!responseMessage.IsSuccessStatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                switch(responseMessage.StatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.BadRequest:
                     {
@@ -78,7 +78,7 @@ namespace SimpleJira.Impl.RestApi
             CancellationToken cancellationToken)
         {
             var project = fields.Controller.GetValue<JiraProject>("project");
-            if(project == (JiraProject) null)
+            if (project == (JiraProject)null)
                 throw new JiraException("Field 'project' is required");
             var request = fields.Controller.GetFields();
             var requestJson = $"{{\"fields\": {request.ToJson()}}}";
@@ -87,8 +87,8 @@ namespace SimpleJira.Impl.RestApi
                 new StringContent(requestJson, Encoding.UTF8, "application/json"),
                 cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
-            if(!responseMessage.IsSuccessStatusCode)
-                switch(responseMessage.StatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.BadRequest:
                         var body = await responseMessage.Content.ReadAsStringAsync();
@@ -113,7 +113,7 @@ namespace SimpleJira.Impl.RestApi
             CancellationToken cancellationToken)
         {
             var identifier = key.Key ?? key.Id;
-            if(identifier == null)
+            if (identifier == null)
                 throw new JiraException("issue's key and issue's id are null");
             var request = issue.Controller.GetChangedFields();
             var requestJson = $"{{\"fields\": {request.ToJson()}}}";
@@ -122,9 +122,9 @@ namespace SimpleJira.Impl.RestApi
                 new StringContent(requestJson, Encoding.UTF8, "application/json"),
                 cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
-            if(!responseMessage.IsSuccessStatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                switch(responseMessage.StatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.BadRequest:
                         var body = await responseMessage.Content.ReadAsStringAsync();
@@ -132,7 +132,7 @@ namespace SimpleJira.Impl.RestApi
                         var errors = Json.Deserialize<JiraErrorMessages>(body);
                         var errorMessages = (errors?.ErrorMessages.ToList() ?? new List<string>());
                         errorMessages.Add(errors?.Errors?.Status);
-                        throw new JiraException(string.Join("\n", errorMessages));  //todo assert?
+                        throw new JiraException(string.Join("\n", errorMessages)); //todo assert?
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     case HttpStatusCode.Forbidden:
@@ -152,9 +152,9 @@ namespace SimpleJira.Impl.RestApi
             CancellationToken cancellationToken)
         {
             string url;
-            if(!string.IsNullOrEmpty(attachment.Content))
+            if (!string.IsNullOrEmpty(attachment.Content))
                 url = attachment.Content;
-            else if(!string.IsNullOrEmpty(attachment.Id))
+            else if (!string.IsNullOrEmpty(attachment.Id))
             {
                 var fileName = attachment.Filename ?? "attachment.bin";
                 url = $"{hostUrl}/secure/attachment/{attachment.Id}/{HttpUtility.UrlEncode(fileName)}";
@@ -164,9 +164,9 @@ namespace SimpleJira.Impl.RestApi
 
             var responseMessage = await jira.GetAsync(url, cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
-            if(!responseMessage.IsSuccessStatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                switch(responseMessage.StatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
@@ -186,16 +186,16 @@ namespace SimpleJira.Impl.RestApi
             byte[] bytes, CancellationToken cancellationToken)
         {
             var identifier = issueReference.Key ?? issueReference.Id;
-            if(identifier == null)
+            if (identifier == null)
                 throw new JiraException("issue's key and issue's id are null");
             var content = new MultipartFormDataContent();
             var fileContent = new ByteArrayContent(bytes);
             content.Add(fileContent, "file", fileName);
             var responseMessage = await jira.PostAsync($"{hostUrl}/rest/api/2/issue/{identifier}/attachments",
                 content, cancellationToken);
-            if(!responseMessage.IsSuccessStatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                switch(responseMessage.StatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
@@ -221,9 +221,9 @@ namespace SimpleJira.Impl.RestApi
         {
             var id = attachment.Id;
             var responseMessage = await jira.DeleteAsync($"{hostUrl}/rest/api/2/attachment/{id}", cancellationToken);
-            if(!responseMessage.IsSuccessStatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                switch(responseMessage.StatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
@@ -243,16 +243,16 @@ namespace SimpleJira.Impl.RestApi
             JiraCommentsRequest request, CancellationToken cancellationToken)
         {
             var identifier = issueReference.Key ?? issueReference.Id;
-            if(identifier == null)
+            if (identifier == null)
                 throw new JiraException("issue's key and issue's id are null");
             var maxResults = request.MaxResults == 0 ? 50 : request.MaxResults;
             var responseMessage = await jira.GetAsync(
                 $"{hostUrl}/rest/api/2/issue/{identifier}/comment?startAt={request.StartAt}&maxResults={maxResults}",
                 cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
-            if(!responseMessage.IsSuccessStatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                switch(responseMessage.StatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
@@ -268,14 +268,14 @@ namespace SimpleJira.Impl.RestApi
             var responseBody = await responseMessage.Content.ReadAsStringAsync();
             cancellationToken.ThrowIfCancellationRequested();
             var dto = Json.Deserialize<JiraCommentsResponseDto>(responseBody);
-            return (JiraCommentsResponse) AutoMapper.Create<JiraCommentsResponseDto, JiraCommentsResponse>().Map(dto);
+            return (JiraCommentsResponse)AutoMapper.Create<JiraCommentsResponseDto, JiraCommentsResponse>().Map(dto);
         }
 
         public async Task<JiraComment> AddCommentAsync(JiraIssueReference issueReference, JiraComment comment,
             CancellationToken cancellationToken)
         {
             var identifier = issueReference.Key ?? issueReference.Id;
-            if(identifier == null)
+            if (identifier == null)
                 throw new JiraException("issue's key and issue's id are null");
             var requestJson = Json.Serialize(comment);
             cancellationToken.ThrowIfCancellationRequested();
@@ -283,9 +283,9 @@ namespace SimpleJira.Impl.RestApi
             var responseMessage = await jira.PostAsync($"{hostUrl}/rest/api/2/issue/{identifier}/comment", content,
                 cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
-            if(!responseMessage.IsSuccessStatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                switch(responseMessage.StatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
@@ -307,16 +307,16 @@ namespace SimpleJira.Impl.RestApi
             CancellationToken cancellationToken)
         {
             var identifier = issueReference.Key ?? issueReference.Id;
-            if(identifier == null)
+            if (identifier == null)
                 throw new JiraException("issue's key and issue's id are null");
 
             var responseMessage = await jira.GetAsync($"{hostUrl}/rest/api/2/issue/{identifier}/transitions",
                 cancellationToken);
 
             cancellationToken.ThrowIfCancellationRequested();
-            if(!responseMessage.IsSuccessStatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                switch(responseMessage.StatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
@@ -333,19 +333,19 @@ namespace SimpleJira.Impl.RestApi
             cancellationToken.ThrowIfCancellationRequested();
             var jiraTransitionDtos = Json.Deserialize<JiraTransitionsResponse>(responseBody).Transitions;
             var autoMapper = AutoMapper.Create<JiraTransitionDto, JiraTransition>();
-            return jiraTransitionDtos.Select(x => (JiraTransition) autoMapper.Map(x)).ToArray();
+            return jiraTransitionDtos.Select(x => (JiraTransition)autoMapper.Map(x)).ToArray();
         }
 
         public async Task InvokeTransitionAsync(JiraIssueReference issueReference, string transitionId, object fields,
             CancellationToken cancellationToken)
         {
             var identifier = issueReference.Key ?? issueReference.Id;
-            if(identifier == null)
+            if (identifier == null)
                 throw new JiraException("issue's key and issue's id are null");
             var invocation = new JiraTransitionInvocation
             {
                 Fields = fields,
-                Transition = new JiraTransitionDto {Id = transitionId}
+                Transition = new JiraTransitionDto { Id = transitionId }
             };
             var requestJson = Json.Serialize(invocation);
             var content = new StringContent(requestJson, Encoding.UTF8, "application/json");
@@ -355,9 +355,9 @@ namespace SimpleJira.Impl.RestApi
                 cancellationToken);
 
             cancellationToken.ThrowIfCancellationRequested();
-            if(!responseMessage.IsSuccessStatusCode)
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                switch(responseMessage.StatusCode)
+                switch (responseMessage.StatusCode)
                 {
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
@@ -368,7 +368,7 @@ namespace SimpleJira.Impl.RestApi
                         var errorMessages = errors?.ErrorMessages ?? new string[0];
                         throw new JiraException(
                             $"can not invoke transition '{transitionId}' for issue '{identifier}', reason: " +
-                            string.Join("\n", errorMessages));
+                            string.Join("\n", errorMessages) + "\n\n" + body);
                     case HttpStatusCode.NotFound:
                         throw new JiraException(
                             $"issue '{identifier}' is not found or the user does not have permission to view it");
