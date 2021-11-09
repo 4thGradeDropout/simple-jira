@@ -46,9 +46,9 @@ namespace SimpleJira.Interface.Issue
         public void SetProperty(string property, object value)
         {
             if (jObject.TryGetValue(property, out _))
-                jObject[property] = Json.ToToken(value);
+                jObject[property] = value == null ? null : Json.ToToken(value);
             else
-                jObject.TryAdd(property, Json.ToToken(value));
+                jObject.TryAdd(property, value == null ? null : Json.ToToken(value));
         }
 
         public string ToJson()
