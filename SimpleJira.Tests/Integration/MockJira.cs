@@ -159,12 +159,13 @@ namespace SimpleJira.Tests.Integration
             var reference = await jira.CreateIssueAsync(new JiraCustomIssue
             {
                 Summary = "Test issue",
-                IntValue = 256
+                IntValue = 256,
+                NullableIntValue = null,
             }, CancellationToken.None);
             var response = await jira.SelectIssuesAsync<JiraCustomIssue>(new JiraIssuesRequest
             {
                 Jql = $"KEY = {reference.Key}",
-                Fields = new[] {"project", "issueType", "summary", "customfield_43567"}
+                Fields = new[] {"project", "issueType", "summary", "customfield_43567", "customfield_43568"}
             });
 
             Assert.That(response.Issues.Length, Is.EqualTo(1));
@@ -175,6 +176,7 @@ namespace SimpleJira.Tests.Integration
             Assert.That(response.Issues[0].IssueType.Id, Is.EqualTo(TestMetadata.IssueType.Id));
             Assert.That(response.Issues[0].Summary, Is.EqualTo("Test issue"));
             Assert.That(response.Issues[0].IntValue, Is.EqualTo(256));
+            Assert.That(response.Issues[0].NullableIntValue, Is.Null);
         }
 
         [TestCase(JiraType.File)]
@@ -369,6 +371,13 @@ namespace SimpleJira.Tests.Integration
             {
                 get => CustomFields[43567].Get<int>();
                 set => CustomFields[43567].Set(value);
+            }
+
+            [JiraIssueProperty(43568)]
+            public int? NullableIntValue
+            {
+                get => CustomFields[43568].Get<int?>();
+                set => CustomFields[43568].Set(value);
             }
 
             private class Scope : IDefineScope<JiraCustomIssue>
