@@ -8,11 +8,11 @@
         <Authors>Ivan Medvedev, Pavel Strabykin</Authors>
         <Description>Provides InMemory and File implementations of SimpleJira.Interface.IJira.</Description>
         <Copyright>Copyright ©2021 Ivan Medvedev</Copyright>
-        <PackageProjectUrl>https://github.com/ivan816/simple-jira/</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/4thGradeDropout/simple-jira/</PackageProjectUrl>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-        <RepositoryUrl>https://github.com/ivan816/simple-jira/</RepositoryUrl>
+        <RepositoryUrl>https://github.com/4thGradeDropout/simple-jira/</RepositoryUrl>
         <PackageTags>jira linq inmemory mock</PackageTags>
-        <PackageVersion>1.0.4</PackageVersion>
+        <PackageVersion>1.0.8</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
