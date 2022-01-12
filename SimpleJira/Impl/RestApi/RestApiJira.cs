@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -49,9 +50,8 @@ namespace SimpleJira.Impl.RestApi
                     {
                         var body = await responseMessage.Content.ReadAsStringAsync();
                         cancellationToken.ThrowIfCancellationRequested();
-                        var errors = Json.Deserialize<JiraErrorMessages>(body);
-                        var errorMessages = errors?.ErrorMessages ?? new string[0];
-                        throw new JqlCompilationException(string.Join("\n", errorMessages));
+                        ThrowBadRequest(body, $"select issues failed, jql '{request.Jql}'");
+                        break;
                     }
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
@@ -93,10 +93,8 @@ namespace SimpleJira.Impl.RestApi
                     case HttpStatusCode.BadRequest:
                         var body = await responseMessage.Content.ReadAsStringAsync();
                         cancellationToken.ThrowIfCancellationRequested();
-                        var errors = Json.Deserialize<JiraErrorMessages>(body);
-                        var errorMessages = (errors?.ErrorMessages.ToList() ?? new List<string>());
-                        errorMessages.Add(errors?.Errors?.Status);
-                        throw new JiraException(string.Join("\n", errorMessages)); //todo assert?
+                        ThrowBadRequest(body, "create issue failed. " + request.ToJson());
+                        break;
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     default:
@@ -129,10 +127,8 @@ namespace SimpleJira.Impl.RestApi
                     case HttpStatusCode.BadRequest:
                         var body = await responseMessage.Content.ReadAsStringAsync();
                         cancellationToken.ThrowIfCancellationRequested();
-                        var errors = Json.Deserialize<JiraErrorMessages>(body);
-                        var errorMessages = (errors?.ErrorMessages.ToList() ?? new List<string>());
-                        errorMessages.Add(errors?.Errors?.Status);
-                        throw new JiraException(string.Join("\n", errorMessages)); //todo assert?
+                        ThrowBadRequest(body, $"update issue '{identifier}' failed: " + request.ToJson());
+                        break;
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     case HttpStatusCode.Forbidden:
@@ -168,6 +164,11 @@ namespace SimpleJira.Impl.RestApi
             {
                 switch (responseMessage.StatusCode)
                 {
+                    case HttpStatusCode.BadRequest:
+                        var body = await responseMessage.Content.ReadAsStringAsync();
+                        cancellationToken.ThrowIfCancellationRequested();
+                        ThrowBadRequest(body, $"download attachment '{url}' failed.");
+                        break;
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     case HttpStatusCode.NotFound:
@@ -197,6 +198,11 @@ namespace SimpleJira.Impl.RestApi
             {
                 switch (responseMessage.StatusCode)
                 {
+                    case HttpStatusCode.BadRequest:
+                        var body = await responseMessage.Content.ReadAsStringAsync();
+                        cancellationToken.ThrowIfCancellationRequested();
+                        ThrowBadRequest(body, $"upload attachment '{fileName}' to '{identifier}' failed.");
+                        break;
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     case HttpStatusCode.Forbidden:
@@ -225,6 +231,11 @@ namespace SimpleJira.Impl.RestApi
             {
                 switch (responseMessage.StatusCode)
                 {
+                    case HttpStatusCode.BadRequest:
+                        var body = await responseMessage.Content.ReadAsStringAsync();
+                        cancellationToken.ThrowIfCancellationRequested();
+                        ThrowBadRequest(body, $"delete attachment '{id}' failed.");
+                        break;
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     case HttpStatusCode.Forbidden:
@@ -254,6 +265,11 @@ namespace SimpleJira.Impl.RestApi
             {
                 switch (responseMessage.StatusCode)
                 {
+                    case HttpStatusCode.BadRequest:
+                        var body = await responseMessage.Content.ReadAsStringAsync();
+                        cancellationToken.ThrowIfCancellationRequested();
+                        ThrowBadRequest(body, $"get comments of '{identifier}' failed.");
+                        break;
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     case HttpStatusCode.NotFound:
@@ -287,6 +303,11 @@ namespace SimpleJira.Impl.RestApi
             {
                 switch (responseMessage.StatusCode)
                 {
+                    case HttpStatusCode.BadRequest:
+                        var body = await responseMessage.Content.ReadAsStringAsync();
+                        cancellationToken.ThrowIfCancellationRequested();
+                        ThrowBadRequest(body, $"add comment to '{identifier}' failed, text '{comment}'.");
+                        break;
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     case HttpStatusCode.NotFound:
@@ -318,6 +339,11 @@ namespace SimpleJira.Impl.RestApi
             {
                 switch (responseMessage.StatusCode)
                 {
+                    case HttpStatusCode.BadRequest:
+                        var body = await responseMessage.Content.ReadAsStringAsync();
+                        cancellationToken.ThrowIfCancellationRequested();
+                        ThrowBadRequest(body, $"get transitions of '{identifier}' failed.");
+                        break;
                     case HttpStatusCode.Unauthorized:
                         throw new JiraAuthorizationException();
                     case HttpStatusCode.NotFound:
@@ -364,11 +390,8 @@ namespace SimpleJira.Impl.RestApi
                     case HttpStatusCode.BadRequest:
                         var body = await responseMessage.Content.ReadAsStringAsync();
                         cancellationToken.ThrowIfCancellationRequested();
-                        var errors = Json.Deserialize<JiraErrorMessages>(body);
-                        var errorMessages = errors?.ErrorMessages ?? new string[0];
-                        throw new JiraException(
-                            $"can not invoke transition '{transitionId}' for issue '{identifier}', reason: " +
-                            string.Join("\n", errorMessages) + "\n\n" + body);
+                        ThrowBadRequest(body, $"can not invoke transition '{transitionId}' for issue '{identifier}'.");
+                        break;
                     case HttpStatusCode.NotFound:
                         throw new JiraException(
                             $"issue '{identifier}' is not found or the user does not have permission to view it");
@@ -377,6 +400,24 @@ namespace SimpleJira.Impl.RestApi
                         break;
                 }
             }
+        }
+
+        private static void ThrowBadRequest(string body, string message)
+        {
+            JiraErrorMessages errors = null;
+            try
+            {
+                errors = Json.Deserialize<JiraErrorMessages>(body);
+            }
+            catch
+            {
+                // ignored
+            }
+
+            var errorMessages = errors?.ErrorMessages ?? new string[0];
+            if (errorMessages.Length == 0)
+                errorMessages = new[] { body };
+            throw new JqlCompilationException(message + "\n" + string.Join("\n", errorMessages));
         }
 
         private static JiraIssue ToIssue(JiraApiIssueModel issue)
