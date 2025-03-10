@@ -1,14 +1,13 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using ProtoBuf;
 using SimpleJira.Interface.Issue;
 
 namespace SimpleJira.Fakes.Impl
 {
     internal class JiraIssueDto
     {
-        private static readonly BinaryFormatter formatter = new BinaryFormatter();
         public string Key { get; set; }
         public string Id { get; set; }
         public string Self { get; set; }
@@ -24,14 +23,14 @@ namespace SimpleJira.Fakes.Impl
                 json = IssueFields.ToJson()
             };
             using var ms = new MemoryStream();
-            formatter.Serialize(ms, model);
+            Serializer.Serialize(ms, model);
             return ms.ToArray();
         }
 
         public static JiraIssueDto FromBytes(byte[] bytes)
         {
             using var ms = new MemoryStream(bytes);
-            var model = (JiraIssueDtoBinary) formatter.Deserialize(ms);
+            var model = Serializer.Deserialize<JiraIssueDtoBinary>(ms);
             return new JiraIssueDto
             {
                 Key = model.key,
@@ -41,12 +40,16 @@ namespace SimpleJira.Fakes.Impl
             };
         }
 
-        [Serializable]
+        [ProtoContract]
         private class JiraIssueDtoBinary : ISerializable
         {
+            [ProtoMember(1)]
             public string key;
+            [ProtoMember(2)]
             public string id;
+            [ProtoMember(3)]
             public string self;
+            [ProtoMember(4)]
             public string json;
 
             private static readonly Type stringType = typeof(string);

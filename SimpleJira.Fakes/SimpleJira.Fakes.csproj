@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <Title>SimpleJira.Fakes</Title>
@@ -11,11 +10,13 @@
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RepositoryUrl>https://github.com/4thGradeDropout/simple-jira/</RepositoryUrl>
         <PackageTags>jira linq inmemory mock</PackageTags>
-        <PackageVersion>1.0.9</PackageVersion>
+        <PackageVersion>1.0.10</PackageVersion>
+        <TargetFramework>net9.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Irony" Version="1.1.0" PrivateAssets="All" />
+        <PackageReference Include="protobuf-net" Version="3.2.46" />
         <PackageReference Include="StemmersNet.Standard" Version="1.1.1" PrivateAssets="All" />
         <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" PrivateAssets="All" />
     </ItemGroup>
