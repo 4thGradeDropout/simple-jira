@@ -54,5 +54,6 @@ namespace SimpleJira.Tests
         protected virtual void SetUp()
         {
         }
+        
     }
 }
