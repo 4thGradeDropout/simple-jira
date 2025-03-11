@@ -52,7 +52,7 @@ namespace SimpleJira.Fakes.Impl
             using var file = new FileStream(contentFilePath, FileMode.Open, FileAccess.Read);
             file.Seek(tuple.position, SeekOrigin.Begin);
             bytes = new byte[tuple.length];
-            file.Read(bytes, 0, tuple.length);
+            file.ReadExactly(bytes, 0, tuple.length);
             return true;
         }
 
@@ -79,7 +79,7 @@ namespace SimpleJira.Fakes.Impl
                 if (shift != 0)
                     file.Seek(shift, SeekOrigin.Current);
                 var bytes = new byte[length];
-                file.Read(bytes, 0, bytes.Length);
+                file.ReadExactly(bytes);
                 yield return new KeyValuePair<long, byte[]>(key, bytes);
             }
         }

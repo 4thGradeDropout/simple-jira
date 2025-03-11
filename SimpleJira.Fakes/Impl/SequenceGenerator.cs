@@ -26,7 +26,7 @@ namespace SimpleJira.Fakes.Impl
             {
                 if (stream.Length > 0)
                 {
-                    stream.Read(buffer, 0, longSize);
+                    stream.ReadExactly(buffer, 0, longSize);
                     value = BitConverter.ToInt64(buffer, 0);
                 }
             }

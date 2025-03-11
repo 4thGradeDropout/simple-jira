@@ -15,10 +15,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Irony" Version="1.1.0" PrivateAssets="All" />
+        <PackageReference Include="Irony" Version="1.5.3" PrivateAssets="All" />
         <PackageReference Include="protobuf-net" Version="3.2.46" />
         <PackageReference Include="StemmersNet.Standard" Version="1.1.1" PrivateAssets="All" />
-        <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,21 +27,4 @@
     <ItemGroup>
       <ProjectReference Include="..\SimpleJira\SimpleJira.csproj" />
     </ItemGroup>
-
-    <Target Name="ILRepack" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
-        <PropertyGroup>
-            <WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>
-        </PropertyGroup>
-        <ItemGroup>
-            <InputAssemblies Include="Irony.dll" />
-            <InputAssemblies Include="StemmersNet.dll" />
-        </ItemGroup>
-        <ItemGroup>
-            <!-- Dot not internalize any types inside this assembly -->
-        </ItemGroup>
-        <Message Text="MERGING: @(InputAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
-        <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).dll" OutputAssembly="$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)" WorkingDirectory="$(WorkingDirectory)" />
-    </Target>
-
-
 </Project>

@@ -24,7 +24,7 @@ namespace SimpleJira.Tests.Modules.Queryable
         {
             lastQuery = null;
             Assert.That(query.ToArray().Length, Is.EqualTo(0));
-            Assert.IsNotNull(lastQuery);
+            Assert.That(lastQuery, Is.Not.Null);
             Assert.That(lastQuery.Query.ToString(), Is.EqualTo(expectedQueryText));
         }
     }

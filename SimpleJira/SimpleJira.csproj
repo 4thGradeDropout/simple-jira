@@ -15,28 +15,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" PrivateAssets="All" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" PrivateAssets="All" />
         <PackageReference Include="Remotion.Linq" Version="2.2.0" PrivateAssets="All" />
-        <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" PrivateAssets="All" />
     </ItemGroup>
     
     <ItemGroup>
         <None Include="../LICENSE.txt" Pack="true" PackagePath="" />
     </ItemGroup>
-
-    <Target Name="ILRepack" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
-        <PropertyGroup>
-            <WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>
-        </PropertyGroup>
-        <ItemGroup>
-            <InputAssemblies Include="Newtonsoft.Json.dll" />
-            <InputAssemblies Include="Remotion.Linq.dll" />
-        </ItemGroup>
-        <ItemGroup>
-            <!-- Dot not internalize any types inside this assembly -->
-        </ItemGroup>
-        <Message Text="MERGING: @(InputAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
-        <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).dll" OutputAssembly="$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)" WorkingDirectory="$(WorkingDirectory)" />
-    </Target>
-
 </Project>
