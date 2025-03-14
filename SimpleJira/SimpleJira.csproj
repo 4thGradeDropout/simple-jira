@@ -11,7 +11,7 @@
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RepositoryUrl>https://github.com/4thGradeDropout/simple-jira/</RepositoryUrl>
         <PackageTags>jira linq</PackageTags>
-        <PackageVersion>1.0.11.1</PackageVersion>
+        <PackageVersion>1.1.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
