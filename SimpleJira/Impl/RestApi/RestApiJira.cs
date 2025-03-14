@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using SimpleJira.Impl.Controllers;
 using SimpleJira.Impl.Dto;
 using SimpleJira.Impl.Serialization;
@@ -433,52 +433,52 @@ namespace SimpleJira.Impl.RestApi
 
         private class JiraSearchRequestModel
         {
-            [JsonProperty("jql")] public string Jql { get; set; }
-            [JsonProperty("startAt")] public int StartAt { get; set; }
-            [JsonProperty("maxResults")] public int MaxResults { get; set; }
-            [JsonProperty("fields")] public string[] Fields { get; set; }
-            [JsonProperty("validateQuery")] public bool ValidateQuery { get; set; }
-            [JsonProperty("expand")] public string[] Expand { get; set; }
+            [JsonPropertyName("jql")] public string Jql { get; set; }
+            [JsonPropertyName("startAt")] public int StartAt { get; set; }
+            [JsonPropertyName("maxResults")] public int MaxResults { get; set; }
+            [JsonPropertyName("fields")] public string[] Fields { get; set; }
+            [JsonPropertyName("validateQuery")] public bool ValidateQuery { get; set; }
+            [JsonPropertyName("expand")] public string[] Expand { get; set; }
         }
 
         private class JiraSearchResponseModel
         {
-            [JsonProperty("expand")] public string Expand { get; set; }
-            [JsonProperty("issues")] public JiraApiIssueModel[] Issues { get; set; }
-            [JsonProperty("maxResults")] public int MaxResults { get; set; }
-            [JsonProperty("startAt")] public int StartAt { get; set; }
-            [JsonProperty("total")] public int Total { get; set; }
+            [JsonPropertyName("expand")] public string Expand { get; set; }
+            [JsonPropertyName("issues")] public JiraApiIssueModel[] Issues { get; set; }
+            [JsonPropertyName("maxResults")] public int MaxResults { get; set; }
+            [JsonPropertyName("startAt")] public int StartAt { get; set; }
+            [JsonPropertyName("total")] public int Total { get; set; }
         }
 
         private class JiraTransitionsResponse
         {
-            [JsonProperty("expand")] public string Expand { get; set; }
-            [JsonProperty("transitions")] public JiraTransitionDto[] Transitions { get; set; }
+            [JsonPropertyName("expand")] public string Expand { get; set; }
+            [JsonPropertyName("transitions")] public JiraTransitionDto[] Transitions { get; set; }
         }
 
         private class JiraTransitionInvocation
         {
-            [JsonProperty("fields")] public object Fields { get; set; }
-            [JsonProperty("transition")] public JiraTransitionDto Transition { get; set; }
+            [JsonPropertyName("fields")] public object Fields { get; set; }
+            [JsonPropertyName("transition")] public JiraTransitionDto Transition { get; set; }
         }
 
         private class JiraErrorMessages
         {
-            [JsonProperty("errorMessages")] public string[] ErrorMessages { get; set; }
-            [JsonProperty("errors")] public Errors Errors { get; set; }
+            [JsonPropertyName("errorMessages")] public string[] ErrorMessages { get; set; }
+            [JsonPropertyName("errors")] public Errors Errors { get; set; }
         }
 
         private class Errors
         {
-            [JsonProperty("status")] public string Status { get; set; }
+            [JsonPropertyName("status")] public string Status { get; set; }
         }
 
         private class JiraCommentsResponseDto
         {
-            [JsonProperty("comments")] public JiraCommentDto[] Comments { get; set; }
-            [JsonProperty("maxResults")] public int MaxResults { get; set; }
-            [JsonProperty("startAt")] public int StartAt { get; set; }
-            [JsonProperty("total")] public int Total { get; set; }
+            [JsonPropertyName("comments")] public JiraCommentDto[] Comments { get; set; }
+            [JsonPropertyName("maxResults")] public int MaxResults { get; set; }
+            [JsonPropertyName("startAt")] public int StartAt { get; set; }
+            [JsonPropertyName("total")] public int Total { get; set; }
         }
     }
 }

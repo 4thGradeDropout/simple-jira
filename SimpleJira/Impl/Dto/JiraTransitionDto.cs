@@ -1,11 +1,11 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SimpleJira.Impl.Dto
 {
     internal class JiraTransitionDto
     {
-        [JsonProperty("id")] public string Id { get; set; }
-        [JsonProperty("name")] public string Name { get; set; }
-        [JsonProperty("to")] public JiraStatusDto To { get; set; }
+        [JsonPropertyName("id")] public string Id { get; set; }
+        [JsonPropertyName("name")] public string Name { get; set; }
+        [JsonPropertyName("to")] public JiraStatusDto To { get; set; }
     }
 }

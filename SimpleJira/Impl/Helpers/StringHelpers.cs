@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using SimpleJira.Impl.Serialization;
 
 namespace SimpleJira.Impl.Helpers
 {
@@ -6,12 +6,12 @@ namespace SimpleJira.Impl.Helpers
     {
         public static string Escape(string source)
         {
-            return JsonConvert.SerializeObject(source);
+            return Json.Serialize(source);
         }
 
         public static string Unescape(string source)
         {
-            return JsonConvert.DeserializeObject<string>(source);
+            return Json.Deserialize<string>(source);
         }
     }
 }

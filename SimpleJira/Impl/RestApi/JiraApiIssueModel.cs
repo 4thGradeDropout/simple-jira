@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SimpleJira.Impl.RestApi
 {
     internal class JiraApiIssueModel
     {
-        [JsonProperty("expand")] public string Expand { get; set; }
-        [JsonProperty("key")] public string Key { get; set; }
-        [JsonProperty("id")] public string Id { get; set; }
-        [JsonProperty("self")] public string Self { get; set; }
-        [JsonProperty("fields")] public Dictionary<string, object> Fields { get; set; }
+        [JsonPropertyName("expand")] public string Expand { get; set; }
+        [JsonPropertyName("key")] public string Key { get; set; }
+        [JsonPropertyName("id")] public string Id { get; set; }
+        [JsonPropertyName("self")] public string Self { get; set; }
+        [JsonPropertyName("fields")] public Dictionary<string, object> Fields { get; set; }
     }
 }

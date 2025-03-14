@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <LangVersion>latest</LangVersion>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <Title>SimpleJira</Title>
@@ -10,16 +11,32 @@
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RepositoryUrl>https://github.com/4thGradeDropout/simple-jira/</RepositoryUrl>
         <PackageTags>jira linq</PackageTags>
-        <PackageVersion>1.0.10</PackageVersion>
-        <TargetFramework>net9.0</TargetFramework>
+        <PackageVersion>1.0.11.1</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" PrivateAssets="All" />
         <PackageReference Include="Remotion.Linq" Version="2.2.0" PrivateAssets="All" />
+        <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" PrivateAssets="All" />
+        <PackageReference Include="System.Text.Json" Version="9.0.3" PrivateAssets="All"/>
     </ItemGroup>
     
     <ItemGroup>
         <None Include="../LICENSE.txt" Pack="true" PackagePath="" />
     </ItemGroup>
+
+    <Target Name="ILRepack" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+        <PropertyGroup>
+            <WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>
+        </PropertyGroup>
+        <ItemGroup>
+<!--            <InputAssemblies Include="System.Text.Json.Serialization.dll" />-->
+            <InputAssemblies Include="Remotion.Linq.dll" />
+        </ItemGroup>
+        <ItemGroup>
+            <!-- Dot not internalize any types inside this assembly -->
+        </ItemGroup>
+        <Message Text="MERGING: @(InputAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
+        <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).dll" OutputAssembly="$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)" WorkingDirectory="$(WorkingDirectory)" />
+    </Target>
+
 </Project>

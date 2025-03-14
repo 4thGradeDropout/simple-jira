@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using SimpleJira.Impl.Helpers;
 using SimpleJira.Impl.Serialization;
 
@@ -35,7 +37,8 @@ namespace SimpleJira.Interface.Issue
         {
             if (jObject.TryGetValue(property, out var obj))
             {
-                value = Json.FromToken(obj, type);
+                JsonNode jsonNode = JsonSerializer.SerializeToNode(obj);
+                value = Json.FromToken(jsonNode, type);
                 return true;
             }
 

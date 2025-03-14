@@ -1,9 +1,7 @@
 using System;
-using System.Globalization;
-using System.IO;
-using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using SimpleJira.Impl.Dto;
 using SimpleJira.Interface.Types;
 
@@ -11,62 +9,60 @@ namespace SimpleJira.Impl.Serialization
 {
     internal static class Json
     {
-        private static readonly JsonSerializer serializer = CreateJsonSerializer();
+        private static readonly JsonSerializerOptions serializerOptions = CreateJsonSerializer();
 
         public static string Serialize(object obj)
         {
-            var stringWriter = new StringWriter(new StringBuilder(256), CultureInfo.InvariantCulture);
-            using (var jsonTextWriter = new JsonTextWriter(stringWriter))
-            {
-                jsonTextWriter.Formatting = serializer.Formatting;
-                serializer.Serialize(jsonTextWriter, obj, typeof(JObject));
-            }
-
-            return stringWriter.ToString();
+            return JsonSerializer.Serialize(obj, serializerOptions);
         }
 
         public static T Deserialize<T>(string json)
         {
-            using var jsonTextReader = new JsonTextReader(new StringReader(json));
-            return (T) serializer.Deserialize(jsonTextReader, typeof(T));
+            return JsonSerializer.Deserialize<T>(json, serializerOptions);
         }
 
-        public static object FromToken(object jObject, Type type)
+        public static object FromToken(JsonNode jsonNode, Type type)
         {
-            if (jObject == null)
+            if (jsonNode == null)
                 return null;
-            if (jObject is JToken jToken)
-                return jToken.ToObject(type, serializer);
+
             type = Nullable.GetUnderlyingType(type) ?? type;
-            return jObject.GetType() == type ? jObject : Convert.ChangeType(jObject, type);
+
+            if (jsonNode.GetType() == type)
+                return jsonNode;
+
+            return jsonNode.Deserialize(type, serializerOptions);
         }
 
-        public static object ToToken(object obj)
+        public static JsonNode ToToken(object obj)
         {
-            return JToken.FromObject(obj, serializer);
+            return JsonSerializer.SerializeToNode(obj, serializerOptions);
         }
 
-        private static JsonSerializer CreateJsonSerializer()
+        private static JsonSerializerOptions CreateJsonSerializer()
         {
-            var jsonSerializer = new JsonSerializer
+            var jsonSerializerOptions = new JsonSerializerOptions
             {
-                NullValueHandling = NullValueHandling.Ignore,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             };
 
-            jsonSerializer.NullValueHandling = NullValueHandling.Ignore;
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraAttachment, JiraAttachmentDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraAvatarUrls, JiraAvatarUrlsDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraComment, JiraCommentDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraCustomFieldOption, JiraCustomFieldOptionDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraIssueReference, JiraIssueReferenceDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraIssueType, JiraIssueTypeDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraPriority, JiraPriorityDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraProject, JiraProjectDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraStatusCategory, JiraStatusCategoryDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraStatus, JiraStatusDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraUser, JiraUserDto>());
-            jsonSerializer.Converters.Add(new JiraJsonConverter<JiraIssueComments, JiraIssueCommentsDto>());
-            return jsonSerializer;
+            jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraAttachment, JiraAttachmentDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraAvatarUrls, JiraAvatarUrlsDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraComment, JiraCommentDto>());
+            jsonSerializerOptions.Converters.Add(
+                new JiraJsonConverter<JiraCustomFieldOption, JiraCustomFieldOptionDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraIssueReference, JiraIssueReferenceDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraIssueType, JiraIssueTypeDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraPriority, JiraPriorityDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraProject, JiraProjectDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraStatusCategory, JiraStatusCategoryDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraStatus, JiraStatusDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraUser, JiraUserDto>());
+            jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraIssueComments, JiraIssueCommentsDto>());
+            return jsonSerializerOptions;
         }
     }
 }

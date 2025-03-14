@@ -1,12 +1,12 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SimpleJira.Impl.Dto
 {
     internal class JiraIssueCommentsDto
     {
-        [JsonProperty("comments")] public JiraCommentDto[] Comments { get; set; }
-        [JsonProperty("maxResults")] public int MaxResults { get; set; }
-        [JsonProperty("startAt")] public int StartAt { get; set; }
-        [JsonProperty("total")] public int Total { get; set; }
+        [JsonPropertyName("comments")] public JiraCommentDto[] Comments { get; set; }
+        [JsonPropertyName("maxResults")] public int MaxResults { get; set; }
+        [JsonPropertyName("startAt")] public int StartAt { get; set; }
+        [JsonPropertyName("total")] public int Total { get; set; }
     }
 }

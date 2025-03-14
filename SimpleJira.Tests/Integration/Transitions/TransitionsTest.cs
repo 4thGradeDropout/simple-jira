@@ -1,8 +1,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Serialization;
 using NUnit.Framework;
 using SimpleJira.Fakes.Interface;
 using SimpleJira.Interface;

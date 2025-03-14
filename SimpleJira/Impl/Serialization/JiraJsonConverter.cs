@@ -1,5 +1,6 @@
 using System;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SimpleJira.Impl.Serialization
 {
@@ -7,20 +8,17 @@ namespace SimpleJira.Impl.Serialization
     {
         private static readonly AutoMapper writeMapper = AutoMapper.Create<TObject, TObjectDto>();
         private static readonly AutoMapper readMapper = AutoMapper.Create<TObjectDto, TObject>();
-        public override void WriteJson(JsonWriter writer, TObject value, JsonSerializer serializer)
+
+        public override TObject Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var dto = writeMapper.Map(value);
-            serializer.Serialize(writer, dto);
+            var dto = JsonSerializer.Deserialize<TObjectDto>(ref reader, options);
+            return (TObject)readMapper.Map(dto);
         }
 
-        public override TObject ReadJson(JsonReader reader, Type objectType, TObject existingValue,
-            bool hasExistingValue,
-            JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, TObject value, JsonSerializerOptions options)
         {
-            if (hasExistingValue)
-                return existingValue;
-            var dto = serializer.Deserialize<TObjectDto>(reader);
-            return (TObject) readMapper.Map(dto);
+            var dto = writeMapper.Map(value);
+            JsonSerializer.Serialize(writer, dto, options);
         }
     }
 }

@@ -1,16 +1,16 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SimpleJira.Impl.Dto
 {
     internal class JiraUserDto
     {
-        [JsonProperty("active")] public bool Active { get; set; }
-        [JsonProperty("avatarUrls")] public JiraAvatarUrlsDto AvatarUrls { get; set; }
-        [JsonProperty("displayName")] public string DisplayName { get; set; }
-        [JsonProperty("emailAddress")] public string EmailAddress { get; set; }
-        [JsonProperty("key")] public string Key { get; set; }
-        [JsonProperty("name")] public string Name { get; set; }
-        [JsonProperty("self")] public string Self { get; set; }
-        [JsonProperty("timeZone")] public string TimeZone { get; set; }
+        [JsonPropertyName("active")] public bool Active { get; set; }
+        [JsonPropertyName("avatarUrls")] public JiraAvatarUrlsDto AvatarUrls { get; set; }
+        [JsonPropertyName("displayName")] public string DisplayName { get; set; }
+        [JsonPropertyName("emailAddress")] public string EmailAddress { get; set; }
+        [JsonPropertyName("key")] public string Key { get; set; }
+        [JsonPropertyName("name")] public string Name { get; set; }
+        [JsonPropertyName("self")] public string Self { get; set; }
+        [JsonPropertyName("timeZone")] public string TimeZone { get; set; }
     }
 }
