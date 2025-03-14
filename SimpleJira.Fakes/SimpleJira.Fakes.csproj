@@ -11,12 +11,12 @@
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RepositoryUrl>https://github.com/4thGradeDropout/simple-jira/</RepositoryUrl>
         <PackageTags>jira linq inmemory mock</PackageTags>
-        <PackageVersion>1.1.0</PackageVersion>
+        <PackageVersion>1.1.1</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Irony" Version="1.5.3" PrivateAssets="All" />
-        <PackageReference Include="protobuf-net" Version="3.2.46" PrivateAssets="All"/>
+        <PackageReference Include="protobuf-net" Version="3.2.46" />
         <PackageReference Include="StemmersNet.Standard" Version="1.1.1" PrivateAssets="All" />
         <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" PrivateAssets="All" />
     </ItemGroup>
