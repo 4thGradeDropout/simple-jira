@@ -47,7 +47,7 @@ namespace SimpleJira.Impl.Serialization
                 WriteIndented = true,
                 Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             };
-
+            jsonSerializerOptions.Converters.Add(new StringConverter());
             jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraAttachment, JiraAttachmentDto>());
             jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraAvatarUrls, JiraAvatarUrlsDto>());
@@ -64,5 +64,29 @@ namespace SimpleJira.Impl.Serialization
             jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraIssueComments, JiraIssueCommentsDto>());
             return jsonSerializerOptions;
         }
+    }
+    public class StringConverter : JsonConverter<string>
+    {
+        public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonTokenType.Number:
+                {
+                    var stringValue = reader.GetInt32();
+                    return stringValue.ToString();
+                }
+                case JsonTokenType.String:
+                    return reader.GetString();
+                default:
+                    throw new JsonException();
+            }
+        }
+ 
+        public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue(value);
+        }
+ 
     }
 }
