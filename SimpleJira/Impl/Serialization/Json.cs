@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -48,6 +49,7 @@ namespace SimpleJira.Impl.Serialization
                 Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             };
             jsonSerializerOptions.Converters.Add(new StringConverter());
+            jsonSerializerOptions.Converters.Add(new DateTimeConverter());
             jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraAttachment, JiraAttachmentDto>());
             jsonSerializerOptions.Converters.Add(new JiraJsonConverter<JiraAvatarUrls, JiraAvatarUrlsDto>());
@@ -65,6 +67,22 @@ namespace SimpleJira.Impl.Serialization
             return jsonSerializerOptions;
         }
     }
+
+    public class DateTimeConverter : JsonConverter<DateTime>
+    {
+        public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            Debug.Assert(typeToConvert == typeof(DateTime));
+            return DateTime.Parse(reader.GetString());
+        }
+
+        public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue(value.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"));
+        }
+    }
+
+
     public class StringConverter : JsonConverter<string>
     {
         public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -82,11 +100,10 @@ namespace SimpleJira.Impl.Serialization
                     throw new JsonException();
             }
         }
- 
+
         public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
         {
             writer.WriteStringValue(value);
         }
- 
     }
 }
