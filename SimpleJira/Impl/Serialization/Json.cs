@@ -78,7 +78,7 @@ namespace SimpleJira.Impl.Serialization
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
+            writer.WriteStringValue(value);
         }
     }
 
