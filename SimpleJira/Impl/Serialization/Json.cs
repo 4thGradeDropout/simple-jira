@@ -78,7 +78,7 @@ namespace SimpleJira.Impl.Serialization
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"));
+            writer.WriteStringValue(value);
         }
     }
 
@@ -90,10 +90,23 @@ namespace SimpleJira.Impl.Serialization
             switch (reader.TokenType)
             {
                 case JsonTokenType.Number:
-                {
-                    var stringValue = reader.GetInt32();
-                    return stringValue.ToString();
-                }
+                    if (reader.TryGetInt32(out int intValue))
+                    {
+                        return intValue.ToString();
+                    }
+                    if (reader.TryGetInt64(out long longValue))
+                    {
+                        return longValue.ToString();
+                    }
+                    if (reader.TryGetDouble(out double doubleValue))
+                    {
+                        return doubleValue.ToString();
+                    }
+                    if (reader.TryGetInt16(out short shortValue))
+                    {
+                        return shortValue.ToString();
+                    }
+                    throw new JsonException("Unsupported number format.");
                 case JsonTokenType.String:
                     return reader.GetString();
                 default:
